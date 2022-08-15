@@ -16,3 +16,4 @@ per_cent_list.sort(reverse=True)
 max_per_cent = per_cent_list[0]
 
 print("Максимальная сумма, которую вы можете заработать — %d" % (max_per_cent * money / 100))
+print(id(money))
