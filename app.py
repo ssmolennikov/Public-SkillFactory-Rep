@@ -1,6 +1,6 @@
 import telebot
 from config import TOKEN, currencies
-from extensions import ConvertionExceptions, Converter
+from extensions import APIException, Converter
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -45,11 +45,11 @@ def convert(message: telebot.types.Message):
         values = message.text.split(' ')
 
         if len(values) != 3:
-            raise ConvertionExceptions('Некорретные данные.\nЧитайте /help.')
+            raise APIException('Некорретные данные.\nЧитайте /help.')
 
         quote, base, amount = values
         total_sum = Converter.get_price(quote, base, amount)
-    except ConvertionExceptions as e:
+    except APIException as e:
         bot.reply_to(message, f'Пользовательская ошибка.\n{e}')
     except Exception as e:
         bot.reply_to(message, f'Не удалось обработать команду\n{e}')

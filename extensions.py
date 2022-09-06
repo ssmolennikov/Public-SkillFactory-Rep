@@ -8,7 +8,7 @@ from config import currencies
 #  def toFixed(numObj, digits=0):
 #      return f"{numObj:.{digits}f}"
 
-class ConvertionExceptions(Exception):
+class APIException(Exception):
     pass
 
 
@@ -16,22 +16,22 @@ class Converter:
     @staticmethod
     def get_price(quote: str, base: str, amount: str):
         if quote == base:
-            raise ConvertionExceptions(f'Невозможно перевести одинаковые валюты {base}.')
+            raise APIException(f'Невозможно перевести одинаковые валюты {base}.')
 
         try:
             quote_ticker = currencies[quote]
         except KeyError:
-            raise ConvertionExceptions(f'Не удалось обработать валюту {quote}')
+            raise APIException(f'Не удалось обработать валюту {quote}')
 
         try:
             base_ticker = currencies[base]
         except KeyError:
-            raise ConvertionExceptions(f'Не удалось обработать валюту {base}')
+            raise APIException(f'Не удалось обработать валюту {base}')
 
         try:
             amount = float(amount.replace(",", "."))
         except ValueError:
-            raise ConvertionExceptions(f'Некорректный формат суммы {amount}!\nОбратитесь к /help')
+            raise APIException(f'Некорректный формат суммы {amount}!\nОбратитесь к /help')
 
         r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
         total_base = json.loads(r.content)[currencies[base]]
