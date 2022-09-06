@@ -1,7 +1,7 @@
 # Сurrencybot_skillfactory
 
 Телеграм-бот для конвертации валют. 
-Имя в телеграме: [Bot] (https://t.me/currrrrrency_bot).
+Имя в телеграме: ![Bot] (https://t.me/currrrrrency_bot).
 
 Этот телеграм-бот знает несколько команд:
 
