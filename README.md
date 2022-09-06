@@ -1,6 +1,6 @@
-# Public-SkillFactory-Rep
+# Сurrencybot_skillfactory
 
-Телеграм-бот для конвертации валют. Имя в телеграме @QAP_Convertbot
+Телеграм-бот для конвертации валют. Имя в телеграме @currrrrrency_bot
 
 Этот телеграм-бот знает несколько команд:
 
