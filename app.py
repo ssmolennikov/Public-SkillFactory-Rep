@@ -6,7 +6,7 @@ bot = telebot.TeleBot(TOKEN)
 
 
 @bot.message_handler(commands=['start'])
-def help(message: telebot.types.Message):
+def start(message: telebot.types.Message):
     text = 'Привет!' \
            '\n\nЯ — валютный бот, могу помочь перевести тебе валюты, например, из рубля в доллар.' \
            '\n\nДанные обновляются регулярно, поэтому итоговая сумма каждый раз может быть разной.' \
