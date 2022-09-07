@@ -34,6 +34,5 @@ class Converter:
             raise APIException(f'Некорректный формат суммы {amount}!\nОбратитесь к /help')
 
         r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
-        total_base = json.loads(r.content)[currencies[base]]
-        total_sum = float(total_base) * float(amount)
-        return format(total_sum, '.2f')
+        total_base = float(json.loads(r.content)[currencies[base]]) * amount
+        return format(total_base, '.2f')
