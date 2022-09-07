@@ -1,12 +1,15 @@
-# Телеграм-бот для конвертации валют.  
-**Имя в телеграме:** [currrrrrency_bot](https://t.me/currrrrrency_bot).
+# Сurrency conversion Telegram bot.  
+**Telegram name:** [currrrrrency_bot](https://t.me/currrrrrency_bot).
 
-Этот телеграм-бот знает несколько команд:
+This bot knows several commands:
 
-+ `/start` выдает стартовое сообщение и ссылается на разделы `/help` и `/values`;
-+ `/help` описывает, какие команды умеет выполнять бот, а также как именно их нужно вводить;
-+ `/values` выписывает все валюты, которые знает бот;
-+ `<валюта 1>` `<валюта 2>` `<количество>` выводит значение количества валюты 2 от валюты 1.
++ `/start` greets the user and links to sections `/help` & `/values`;
++ `/help` describes what commands the bot can execute and how to enter them correctly with examples;
++ `/values` displays the currencies that the bot can convert;
++ `<currency 1>` `<currency 2>` `<amount>` prints the amount value of currency 2 from currency 1.
 
-**Данный бот не размещен на сервере, потому запуск происходит с личных мощностей путём клонирования репозитория.**  
-Для работы с ботом необходимо установить пакеты **requests и PyTelegramBotAPI.**
+**This bot isn't hosted on the server, so it launches on a personal machine by cloning this repository or using the download button.**   
+**If you want use that bot, you need to install this packages:**  
++ `requests`; 
++ `PyTelegramBotAPI`.   
+>**TOKEN IS ALSO NOT INCLUDED**
