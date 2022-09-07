@@ -9,5 +9,5 @@ This bot knows several commands:
 + `<currency 1>` `<currency 2>` `<amount>` prints the amount value of currency 2 from currency 1.
 
 **This bot isn't hosted on the server, so it starts on a personal machine by cloning the repository.**   
-To work with the bot, you need to **install the** `requests` **and** `PyTelegramBotAPI` **packages**.  
+If you want use that bot, you need to **install the** `requests` **and** `PyTelegramBotAPI` **packages**.  
 **TOKEN IS ALSO NOT INCLUDED**
