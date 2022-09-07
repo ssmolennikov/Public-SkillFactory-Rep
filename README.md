@@ -1,5 +1,5 @@
-# Телеграм-бот для конвертации валют. 
->Имя в телеграме: [currrrrrency_bot](https://t.me/currrrrrency_bot).
+# Телеграм-бот для конвертации валют.  
+Имя в телеграме: [currrrrrency_bot](https://t.me/currrrrrency_bot).
 
 Этот телеграм-бот знает несколько команд:
 
