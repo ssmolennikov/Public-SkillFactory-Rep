@@ -1,10 +1,13 @@
+import re
+
 import requests
 import json
 from config import currencies
 
 
 # Один из вариантов самописной функции, которая позволяет сокращать количество знаков после запятой, на случай,
-# если не хочется пользоваться, по каким-то причинам, format(x, '.xf').
+# если не хочется пользоваться, по каким-то причинам, format(x, '.xf'), либо использовать регулярные выражения
+# для большей точности.
 #  def toFixed(numObj, digits=0):
 #      return f"{numObj:.{digits}f}"
 
@@ -35,4 +38,4 @@ class Converter:
 
         r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
         total_base = float(json.loads(r.content)[currencies[base]]) * amount
-        return format(total_base, '.2f')
+        return re.match(r'\d+.\d{3}', str(total_base)).group(0)
