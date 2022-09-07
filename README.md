@@ -8,7 +8,7 @@ This bot knows several commands:
 + `/values` displays the currencies that the bot can convert;
 + `<currency 1>` `<currency 2>` `<amount>` prints the amount value of currency 2 from currency 1.
 
-**This bot isn't hosted on the server, so it starts on a personal machine by cloning the repository.**   
+**This bot isn't hosted on the server, so it launches on a personal machine by cloning this repository or using the download button.**   
 **If you want use that bot, you need to install this packages:**  
 + `requests`; 
 + `PyTelegramBotAPI`.   
