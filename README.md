@@ -12,4 +12,4 @@ This bot knows several commands:
 **If you want use that bot, you need to install:**  
 + `requests`; 
 + `PyTelegramBotAPI`.   
-**TOKEN IS ALSO NOT INCLUDED**
+>**TOKEN IS ALSO NOT INCLUDED**
