@@ -8,6 +8,6 @@ The settings.py file located in the root directory contains information about va
 
 The api.py file located in the root directory contains a library for the REST api service of the Pet Friends web application.
 
-The /tests directory contains the test file.
+The ""/tests"" directory contains the test file.
 
 The /tests/images directory contains photos for tests.
