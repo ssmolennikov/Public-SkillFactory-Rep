@@ -1,13 +1,13 @@
-#PetFriendsApiTests-task-19.7.2
+# PetFriendsApiTests-task-19.7.2
 
-Тестовый проект к 19 модулю SkillFactory курса QAP
+Test project for SkillFactory module 19 of the QAP course
 
-Тестирование REST api сайта Pet Friends
+Testing the REST api of the Pet Friends website
 
-В файле settings.py расположенном в корневой директории содержится информация о валидных и невалидных емейлах и паролях.
+The settings.py file located in the root directory contains information about valid and invalid emails and passwords.
 
-В файле api.py расположенном в корневой директории содержится библиотека к REST api сервису веб приложения Pet Friends.
+The api.py file located in the root directory contains a library for the REST api service of the Pet Friends web application.
 
-В директории /tests располагается файл с тестами.
+The /tests directory contains the test file.
 
-В директории /tests/images лежат фотографии для тестов.
+The /tests/images directory contains photos for tests.
