@@ -1,6 +1,6 @@
 # PetFriendsApiTests-task-19.7.2
 
-Test project for SkillFactory module 19 of the QAP course
+Test project for SkillFactory module 19
 
 Testing the REST api of the Pet Friends website
 
