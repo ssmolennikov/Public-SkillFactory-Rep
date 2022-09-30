@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 def testing():
     pytest.driver = webdriver.Chrome("./drivers/chromedriver")
     # Переходим на страницу авторизации
-    pytest.driver.get('http://petfriends1.herokuapp.com/login')
+    pytest.driver.get('https://petfriends.skillfactory.ru/login')
 
     yield
 
