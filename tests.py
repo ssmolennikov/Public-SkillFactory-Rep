@@ -1,137 +1,132 @@
 import pytest
 from selenium import webdriver
-
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from link import *
 
 
 @pytest.fixture(autouse=True)
 def testing():
-    pytest.driver = webdriver.Chrome("./drivers/chromedriver")
+    """Chrome Driver"""
+    pytest.driver = webdriver.Chrome(executable_path=DRIVER_PATH)
+    # Неявное ожидание
+    pytest.driver.implicitly_wait(5)
     # Переходим на страницу авторизации
-    pytest.driver.get('https://petfriends.skillfactory.ru/login')
+    pytest.driver.get(pet_friends_login)
 
     yield
 
     pytest.driver.quit()
 
 
-def test_show_my_pets():
-    # неявное ожидание 5 сек. при каждом шаге
-    pytest.driver.implicitly_wait(5)
+def test_all_pets():
+    # Auth on website
+    # Entering email
+    pytest.driver.implicitly_wait(10)
+    pytest.driver.find_element(By.ID, 'email').send_keys(valid_email)
+    # Entering Password
+    pytest.driver.find_element(By.ID, 'pass').send_keys(valid_password)
+    # Press on the button to enter into account
+    pytest.driver.find_element(By.CSS_SELECTOR, btn_click).click()
+    # Check that we are on the user home page
+    assert pytest.driver.find_element(By.TAG_NAME, 'h1').text == "PetFriends"
 
-    # Вводим email
-    pytest.driver.find_element_by_id('email').send_keys('sssmolennikov@mail.ru')
-    # Вводим пароль
-    pytest.driver.find_element_by_id('pass').send_keys('Horse2011')
+    pytest.driver.implicitly_wait(10)
+    images = pytest.driver.find_elements(By.CSS_SELECTOR, all_card_deck_image)
+    names = pytest.driver.find_elements(By.CSS_SELECTOR, all_card_deck_names)
+    descriptions = pytest.driver.find_elements(By.CSS_SELECTOR, all_card_deck_descriptions)
 
-    # Нажимаем на кнопку входа в аккаунт
-    pytest.driver.find_element_by_css_selector('button[type="submit"]').click()
-
-    # Проверяем, что мы оказались на главной странице
-    assert pytest.driver.find_element_by_tag_name('h1').text == "PetFriends"
-    # Нажимаем на кнопку перехода к выбору списка питомцев
-    pytest.driver.find_element_by_xpath('//button[@class="navbar-toggler"]').click()
-
-    # Нажимаем на кнопку для перехода к списку своих питомцев
-    pytest.driver.find_element_by_xpath('//a[@href="/my_pets"]').click()
-
-    # явное ожидание 10 сек.
-    WebDriverWait(pytest.driver, 10).until(EC.presence_of_element_located((By.ID, 'all_my_pets')))
-
-    # Проверяем, что мы оказались на странице со списком своих питомцев
-    assert pytest.driver.find_element_by_tag_name('h2').text == "basik"
-
-    # объявляем 4 переменные, в которых записываем все найденные элементы на странице:
-    # в images — все картинки питомцев,
-    # в names — все их имена,
-    # в breeds — все породы животных,
-    # в years - все возрасты
-    images = pytest.driver.find_elements_by_xpath('//*[@id="all_my_pets"]//img')
-    names = pytest.driver.find_elements_by_xpath('//*[@id="all_my_pets"]/table/tbody/tr/td[1]')
-    breeds = pytest.driver.find_elements_by_xpath('//*[@id="all_my_pets"]/table/tbody/tr/td[2]')
-    years = pytest.driver.find_elements_by_xpath('//*[@id="all_my_pets"]/table/tbody/tr/td[3]')
-
-    # объявляем переменную, в которую записываем текстовое значение элемента на странице,
-    # в котором содержится информация об общем количестве питомцев пользователя
-    my_pets = pytest.driver.find_element_by_xpath('/html/body/div[1]/div/div[1]').text
-    # строку преобразуем в список
-    list_my_pets = my_pets.split()
-
-    # Проверяем, что на странице присутствуют все питомцы пользователя
-    # общее количество питомцев пользователя равно длине списка имен
-    assert int(list_my_pets[2]) == len(names)
-
-    images1 = []
-    for i in range(len(images)):
-        if images[i].get_attribute('src') != '':
-            images1.append(images[i])
-
-    # Проверяем, что хотя бы у половины питомцев есть фото
-    assert len(images1) >= int(list_my_pets[2]) / 2
-
-    # Создаем пустой список, в который будем добавлять текстовые значения имен питомцев
-    names1 = []
-    # Создаем список, в который будем добавлять непустые значения имен питомцев
-    names2 = []
-    # Проходимся по списку names, добавляем в список names1 все текстовые значения имен питомцев
     for i in range(len(names)):
-        names1.append(names[i].text)
-        # проверяем, если текстовое значение элемента не пустое, то добавляем его в список names2
-        if names[i].text != '':
-            names2.append(names[i].text)
+        name = names[i].text
+        image = images[i].get_attribute('src')
+        desc = descriptions[i].text
+        assert image != '' and image != '(unknown)'
+        assert name != ''
+        assert desc != '' and desc != 'None, None лет'
+        assert ',' in desc
+        parts = desc.split(",")
+        assert len(parts[0]) > 0 and parts[0] != 'None'
+        assert len(parts[1]) > 0 and parts[1] != 'None лет' and parts[1] != ' лет'
 
-    # Создаем пустой список, в который будем добавлять текстовые значения пород питомцев
-    breeds1 = []
-    # Создаем список, в который будем добавлять непустые значения пород питомцев
-    breeds2 = []
-    # Проходимся по списку breeds, добавляем в список breeds1 все текстовые значения пород питомцев
-    for i in range(len(breeds)):
-        breeds1.append(breeds[i].text)
-        # проверяем, если текстовое значение элемента не пустое, то добавляем его в список breeds2
-        if breeds[i].text != '':
-            breeds2.append(breeds[i].text)
 
-    # Создаем пустой список, в который будем добавлять текстовые значения возрастов питомцев
-    years1 = []
-    # Создаем список, в который будем добавлять непустые значения возрастов питомцев
-    years2 = []
-    # Проходимся по списку years, добавляем в список years1 все текстовые значения возрастов питомцев
-    for i in range(len(years)):
-        years1.append(years[i].text)
-        # проверяем, если текстовое значение элемента не пустое, то добавляем его в список years2
-        if breeds[i].text != '':
-            years2.append(years[i].text)
+def test_my_pets():
+    wait = WebDriverWait(pytest.driver, 5)
+    # Auth on website
+    # Entering email
+    wait.until(EC.presence_of_element_located((By.ID, "email"))).send_keys(valid_email)
 
-    # Проверяем, что у всех питомцев есть имя, возраст и порода
-    assert int(list_my_pets[2]) == len(breeds2) and int(list_my_pets[2]) == len(names2) and int(
-        list_my_pets[2]) == len(years2)
+    # Entering password
+    wait.until(EC.presence_of_element_located((By.ID, "pass"))).send_keys(valid_password)
 
-    # Создаем пустой список, в который будем добавлять повторяющиеся имена питомцев
-    names3 = []
-    # Проходимся по списку текстовых значений names1 и добавляем повторяющиеся его элементы в список names3
-    for n in range(len(names1)):
-        for j in range(n + 1, len(names1)):
-            if names1[n] == names1[j]:
-                names3.append(names1[n])
+    # Press on the button to enter into account
+    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, btn_click))).click()
 
-    # Проверяем, что у всех питомцев разные имена, список names3 должен быть пустой
-    assert len(names3) == 0
+    # Check that we are on the user home page
+    assert pytest.driver.find_element(By.TAG_NAME, 'h1').text == "PetFriends"
 
-    # объявляем переменную, в которую записываем все найденные элементы на странице (вся инфомация в карточках питомцев)
-    pets = pytest.driver.find_elements_by_xpath('//*[@id="all_my_pets"]/table/tbody/tr')
-    # создаем 2 пустых списка
-    pets1 = []
-    pets2 = []
-    # Проходим по списку pets и добавляем в список pets1 текстовые значения элементов
-    for i in range(len(pets)):
-        pets1.append(pets[i].text)
+    # Go to the page of your pets
+    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, my_pets))).click()
+    assert pytest.driver.find_element(By.TAG_NAME, 'h2').text == "sssmolennikov"
 
-    # Проходим по списку pets1 и добавляем в список pets повторяющиеся элементы
-    for n in range(len(pets1)):
-        for j in range(n + 1, len(pets1)):
-            if pets1[n] == pets1[j]:
-                pets2.append(pets1[n])
+    # number of pets
+    # save the statistics elements to the data_stats variable
+    data_stats = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, profile_statistics)))
 
-    assert len(pets2) == 0
+    # Getting the number of pets from statistics data
+    statistic = data_stats[0].text.split('\n')
+    statistic = statistic[1].split(' ')
+    statistic = int(statistic[1])
+    assert statistic > 0
+
+    # Checking that the number of rows in the table is equal to the number recorded in the statistics
+    images = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'IMG')))
+    count_table = len(images) - 1
+    assert count_table >= 0
+    assert statistic == count_table
+
+    # Using the counter to count the number of user's pets with a photo
+    pytest.driver.implicitly_wait(5)
+    photo_presence = 0
+
+    # determine the number of pets with a photo by a non-empty value of the scr attribute
+    for i in range(count_table):
+        photo = images[i].get_attribute('src')
+        if photo != '' and photo != '(unknown)':
+            photo_presence += 1
+        else:
+            photo_presence = photo_presence
+
+    # Checking that at least half of all pets have a photo
+    assert photo_presence >= (count_table // 2)
+
+    # Check that pets have all the data filled in: name, type, age
+    my_list = []
+    my_names = []
+
+    # constant part in Xpath
+    x_path = CONSTANT_XPATH
+    for i in range(1, count_table + 1):
+        line = ''
+        pytest.driver.implicitly_wait(5)
+        name = pytest.driver.find_element(By.XPATH, x_path + str(i) + "]/td[1]").text
+        assert name != '', 'У питомца отсутствует имя'
+        line += name
+        my_names.append(line)
+        tip = pytest.driver.find_element(By.XPATH, x_path + str(i) + "]/td[2]").text
+        assert tip != '' and tip != 'None'
+        line += tip
+        age = pytest.driver.find_element(By.XPATH, x_path + str(i) + "]/td[3]").text
+        assert age != '' and age != 'None лет' and age != ' лет'
+        line += age
+        my_list.append(line)
+    assert my_list != []
+    assert my_names != []
+
+    # Check that the list does not contain duplicate information about pets (name, breed, age)
+    my_set = set(my_list)
+    assert len(my_set) == count_table
+
+    # Checking that there are no duplicate pet names in the list
+    my_set_names = set(my_names)
+    assert len(my_set_names) == count_table
