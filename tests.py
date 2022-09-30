@@ -10,9 +10,9 @@ from link import *
 def testing():
     """Chrome Driver"""
     pytest.driver = webdriver.Chrome(executable_path=DRIVER_PATH)
-    # Неявное ожидание
+    # Implicit wait
     pytest.driver.implicitly_wait(5)
-    # Переходим на страницу авторизации
+    # Go to the login page
     pytest.driver.get(pet_friends_login)
 
     yield
