@@ -22,15 +22,17 @@ In the process of work, 65 tests were formed.
 
 :white_check_mark: **`tests/test_labirint_search.py`** contains search tests
 
-## How to run the tests
-1. Install all requirements:
-   ```bash
-  pip3 install -r requirements 
-   ```
-2. Download Selenium WebDriver from https://chromedriver.chromium.org/downloads (select the version compatible with your browser)
+## How to eun tests
+----------------
+1) Install all requirements:
+    ```bash
+    pip3 install -r requirements
+    ```
+2) Download Selenium WebDriver from https://chromedriver.chromium.org/downloads
+    (select the version compatible with your browser)
 
-3. Run tests:
-   ```bash
-   python3 -m pytest -v --driver Chrome --driver-path ~/chrome tests/*
-   ```
+3) Run tests:
+    ```bash
+    python3 -m pytest -v --driver Chrome --driver-path ~/chrome tests/*
+    ```
 > **Note**: ~/chrome in this example is the Selenium WebDriver file downloaded and unzipped in step #2.
