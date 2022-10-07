@@ -26,6 +26,7 @@ In the process of work, 65 tests were formed.
 1. Install all requirements:
 
 **`pip3 install -r requirements`**
+
 2. Download Selenium WebDriver from https://chromedriver.chromium.org/downloads (select the version compatible with your browser)
 
 3. Run tests:
