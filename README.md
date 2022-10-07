@@ -1,4 +1,4 @@
-# Task 28.1
+# Task 28.1 Intro
 
 I used the Page Object Template with Selenium and Python (PyTest + Selenium) by Timur Nurlygayanov. Link: https://github.com/TimurNurlygayanov/ui-tests-example
 
