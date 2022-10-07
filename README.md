@@ -5,6 +5,7 @@ I used the Page Object Template with Selenium and Python (PyTest + Selenium) by 
 In the task, the site of the Labyrinth online store was selected.
 In the process of work, 65 tests were formed.
 
+## About files in
 :white_check_mark: **`conftest.py`** contains all the necessary code to catch failed test cases and take a screenshot of the page in case any test case fails.
 
 :white_check_mark: **`pages/base.py`** contains the implementation of the page object template for Python.
