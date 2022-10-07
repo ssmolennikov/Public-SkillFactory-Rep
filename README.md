@@ -22,7 +22,7 @@ In the process of work, 65 tests were formed.
 
 :white_check_mark: **`tests/test_labirint_search.py`** contains search tests
 
-## How to eun tests
+## How to run tests
 ----------------
 1) Install all requirements:
     ```bash
