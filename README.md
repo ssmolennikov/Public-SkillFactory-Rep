@@ -1,6 +1,7 @@
 # Task 28.1 Intro
 
-I used the Page Object Template with Selenium and Python (PyTest + Selenium) by Timur Nurlygayanov. Link: https://github.com/TimurNurlygayanov/ui-tests-example
+I used the Page Object Template with Selenium and Python (PyTest + Selenium) by Timur Nurlygayanov.  
+Link: https://github.com/TimurNurlygayanov/ui-tests-example
 
 In the task, the site of the Labyrinth online store was selected.
 In the process of work, 65 tests were formed.
